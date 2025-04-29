@@ -4,15 +4,53 @@ using UnityEngine;
 
 public class enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int maxHealth = 500;
+    public int currentHealth;
+    public Slider healthBar;
+
+    public int cultistReward = 5;
+
+    public int damagePerClick = 10;
+
+
+    private void Start()
     {
-        
+        currentHealth = maxHealth;
+        UpdateHealthUI();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void TakeDamage(int damage)
     {
-        
+        currentHealth -= damage;
+        UpdateHealthUI();
+
+        if(currentHealth <= 0){
+            Die();
+        }
+
     }
+
+
+
+    private void UpdateHealthUI()
+    {
+        if(healthBar != null)
+        {
+            healthBar.maxValue = maxHealth;
+            healthBar.value = currentHealth;
+        }
+    }
+
+
+    private void Die()
+    {
+        //Reward Cultists for defeating enemy
+        CultManager.Instance.AddCultists(cultistsReward);
+        //tell GameManager to go to next phase
+        GameManager.Instance.NextLevel(); 
+
+    }
+
+
 }
