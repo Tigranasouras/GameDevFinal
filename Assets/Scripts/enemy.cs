@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class enemy : MonoBehaviour
 {
@@ -46,7 +48,7 @@ public class enemy : MonoBehaviour
     private void Die()
     {
         //Reward Cultists for defeating enemy
-        CultManager.Instance.AddCultists(cultistsReward);
+        CultManager.Instance.AddCultists(cultistReward);
         //tell GameManager to go to next phase
         GameManager.Instance.NextLevel(); 
 

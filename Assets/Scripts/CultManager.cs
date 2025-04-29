@@ -26,7 +26,7 @@ public class CultManager : MonoBehaviour
     public void AddCultists(int amount)
     {
         cultistCount += amount;
-        UpdateCultistsUI();
+        UpdateCultistUI();
     }
 
 
@@ -35,7 +35,7 @@ public class CultManager : MonoBehaviour
         if(cultistCount >= amount)
         {
             cultistCount -= amount;
-            UpdateCultistsUI();
+            UpdateCultistUI();
             return true;
 
         }

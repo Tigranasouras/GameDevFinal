@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManagers Instance;
+    public static GameManager Instance;
 
     public int currentLevel = 1;
     public int maxLevel = 3;
@@ -14,12 +14,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if(Instance == null){
         Instance = this;
         DontDestroyOnLoad(gameObject); // persist between scenes
-
-    }else{
+        }else{
         Destroy(gameObject);
+    }
+
+
     }
 
     public void StartGame(){
@@ -51,11 +53,4 @@ public class GameManager : MonoBehaviour
     public void LoadVictory(){
         SceneManager.LoadScene("VictoryScene");
     }
-
-.
-
-
-
-
-
 }
