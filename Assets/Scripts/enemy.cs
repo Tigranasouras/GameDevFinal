@@ -14,16 +14,18 @@ public class enemy : MonoBehaviour
 
     public int cultistReward = 5;
 
-    public int damagePerClick = 10;
+    public int damagePerClick = 13;
 
     public Text WinTextUI;
 
-     public float damageInterval = 1f;
+     public float damageInterval = 0.3f;
 
      public int clickDamage = 26;
 
      public TMPro.TextMeshProUGUI crabHealth;
      public TMPro.TextMeshProUGUI playerHealth;
+
+     public GameObject resetButton;
 
 
 
@@ -84,13 +86,14 @@ public class enemy : MonoBehaviour
                 healthBar.value = 0;
                  UpdateLoseUI();
                 CancelInvoke(nameof(dealDamage)); // Stop future damage calls
-                
+                resetButton.gameObject.SetActive(true);
             }
 
         if(enemyHealthBar.value <=0){
             enemyHealthBar.value = 0;
             UpdateLoseUI();
             CancelInvoke(nameof(dealDamage));
+            resetButton.gameObject.SetActive(true);
         }
 
     
