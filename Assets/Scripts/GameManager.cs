@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadGame(){
         inCombat = true;
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("gameplay");
     }
 
     public void LoadSacrifice()

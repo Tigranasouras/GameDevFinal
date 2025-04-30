@@ -10,16 +10,43 @@ public class enemy : MonoBehaviour
     public int currentHealth;
     public Slider healthBar;
 
+    public Slider enemyHealthBar;
+
     public int cultistReward = 5;
 
     public int damagePerClick = 10;
+
+    public Text WinTextUI;
+
+     public float damageInterval = 1f;
+
+     public int clickDamage = 26;
+
+     public TMPro.TextMeshProUGUI crabHealth;
+     public TMPro.TextMeshProUGUI playerHealth;
+
+
 
 
     private void Start()
     {
         currentHealth = maxHealth;
         UpdateHealthUI();
+        InvokeRepeating(nameof(dealDamage), 0f, damageInterval);
+        
     }
+
+    private void Update()
+    {
+      if (Input.GetMouseButtonDown(0) && healthBar.value > 0 && enemyHealthBar.value > 0|| Input.GetKeyDown(KeyCode.Space)  && healthBar.value > 0 && enemyHealthBar.value > 0){
+        
+     TakeDamage(clickDamage);
+
+            
+    }   
+    }
+
+
 
 
     public void TakeDamage(int damage)
@@ -41,18 +68,59 @@ public class enemy : MonoBehaviour
         {
             healthBar.maxValue = maxHealth;
             healthBar.value = currentHealth;
+            playerHealth.text = "" + healthBar.value;
         }
+    }
+
+    private void dealDamage(){
+
+        if(enemyHealthBar != null){
+            enemyHealthBar.value -= damagePerClick;
+            crabHealth.text = "" + enemyHealthBar.value;
+        }
+
+        if (healthBar.value <= 0)
+            {
+                healthBar.value = 0;
+                 UpdateLoseUI();
+                CancelInvoke(nameof(dealDamage)); // Stop future damage calls
+                
+            }
+
+        if(enemyHealthBar.value <=0){
+            enemyHealthBar.value = 0;
+            UpdateLoseUI();
+            CancelInvoke(nameof(dealDamage));
+        }
+
+    
     }
 
 
     private void Die()
     {
+        UpdateWINUI();
         //Reward Cultists for defeating enemy
-        CultManager.Instance.AddCultists(cultistReward);
+        //CultManager.Instance.AddCultists(cultistReward);
         //tell GameManager to go to next phase
-        GameManager.Instance.NextLevel(); 
+        //GameManager.Instance.NextLevel(); 
 
     }
 
+    private void UpdateWINUI()
+    {
+        if(WinTextUI != null)
+        {
+            WinTextUI.text = "YOU WIN";
+        }
+    }
+
+    private void UpdateLoseUI()
+    {
+        if(WinTextUI != null)
+        {
+            WinTextUI.text = "GAME OVER";
+        }
+    }
 
 }
